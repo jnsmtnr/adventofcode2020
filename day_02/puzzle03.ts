@@ -9,7 +9,7 @@ interface Policy {
   char: string;
 }
 
-function lineSplitter(line: string): PwdLine {
+export function lineSplitter(line: string): PwdLine {
   const splittedLine = line
     .replace(":", "")
     .replace("-", " ")
@@ -25,21 +25,25 @@ function lineSplitter(line: string): PwdLine {
   };
 }
 
-function pwdChecker(line: PwdLine): boolean {
+export function pwdChecker(line: PwdLine): boolean {
   const { password, policy } = line;
   const filteredPwd = password.split("").filter((chr) => chr === policy.char);
   return filteredPwd.length >= policy.min && filteredPwd.length <= policy.max;
 }
 
-const answer = Deno
-  .readTextFileSync("input.txt")
-  .split("\n")
-  .filter(Boolean)
-  .map(lineSplitter)
-  .map(pwdChecker)
-  .filter(Boolean)
-  .length;
+export function validPwdSearcher(passwords: Array<string>): number {
+  return passwords
+    .map(lineSplitter)
+    .map(pwdChecker)
+    .filter(Boolean)
+    .length;
+}
 
-console.log(answer);
+if (import.meta.main) {
+  const input = Deno
+    .readTextFileSync("input.txt")
+    .split("\n")
+    .filter(Boolean);
 
-export {};
+  console.log(validPwdSearcher(input));
+}
