@@ -1,4 +1,4 @@
-function expensesFilter(expenses: number[]): number {
+export function expensesFilter(expenses: number[]): number {
   for (let i = 0; i < expenses.length; i++) {
     for (let j = i + 1; j < expenses.length; j++) {
       if (expenses[i] + expenses[j] === 2020) {
@@ -9,11 +9,12 @@ function expensesFilter(expenses: number[]): number {
   return -1;
 }
 
-const puzzleInput = Deno
-  .readTextFileSync("input.txt")
-  .split("\n")
-  .map(Number);
+if (import.meta.main) {
+  const puzzleInput = Deno
+    .readTextFileSync("input.txt")
+    .split("\n")
+    .map(Number);
+  
+  console.log(expensesFilter(puzzleInput));
+}
 
-console.log(expensesFilter(puzzleInput));
-
-export {};
