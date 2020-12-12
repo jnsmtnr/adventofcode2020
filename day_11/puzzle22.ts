@@ -7,13 +7,12 @@ export function checkDirection(
   dx: number,
   dy: number,
 ): boolean {
-  while (true) {
-    for (let i = 1; i < Infinity; i++) {
-      const seat = seats[`${x + i * dx}/${y + i * dy}`];
-      if (seat === "L" || !seat) return false;
-      if (seat === "#") return true;
-    }
+  for (let i = 1; i < Infinity; i++) {
+    const seat = seats[`${x + i * dx}/${y + i * dy}`];
+    if (seat === "L" || !seat) return false;
+    if (seat === "#") return true;
   }
+  return false;
 }
 
 export function countOccupiedSeats(
