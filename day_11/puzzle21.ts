@@ -94,18 +94,19 @@ export function simulate(
         const newSeat = seatChanger(oldSeats, x, y);
         if (oldSeat !== newSeat) {
           changed = true;
-        } 
+        }
         newSeats[`${x}/${y}`] = newSeat;
       }
     }
 
-    oldSeats = {...newSeats}
+    oldSeats = { ...newSeats }
   }
 
   return Object.values(oldSeats).reduce((acc, seat) => acc + (seat === '#' ? 1 : 0), 0);
 }
 
 if (import.meta.main) {
+  const start = new Date()
   const puzzle = Deno.readTextFileSync("input.txt")
 
   const rowNumber = getRowNumber(puzzle);
@@ -114,4 +115,6 @@ if (import.meta.main) {
   const seats = mapSeats(puzzle, rowLength);
 
   console.log(simulate(seats, rowNumber, rowLength, changeSeat));
+  const end = new Date()
+  console.log(end.getTime() - start.getTime());
 }

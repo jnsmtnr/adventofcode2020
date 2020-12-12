@@ -45,11 +45,14 @@ export function changeSeat(seats: SeatMap, x: number, y: number) {
 }
 
 if (import.meta.main) {
+  const start = new Date();
   const puzzle = Deno.readTextFileSync("input.txt");
 
   const rowNumber = getRowNumber(puzzle);
   const rowLength = getRowLength(puzzle);
   const seats = mapSeats(puzzle, rowLength);
-  
+
   console.log(simulate(seats, rowNumber, rowLength, changeSeat));
+  const end = new Date();
+  console.log(end.getTime() - start.getTime());
 }
